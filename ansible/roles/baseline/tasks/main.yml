@@ -1,0 +1,7 @@
+---
+- name: Install baseline packages
+  ansible.builtin.dnf:
+    name:
+      - curl
+    state: present
+    
