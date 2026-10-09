@@ -1,46 +1,51 @@
 # Unreal Logistics Hybrid Operations Modernization POC
 
-A customer-focused proof of concept demonstrating how Red Hat technologies can support infrastructure standardization, enterprise automation, and gradual application modernization.
+This project is a hands-on Red Hat proof of concept built around a fictional mid-sized company called Unreal Logistics.
 
-## Project Goal
+The goal was to show how a company could improve the way it manages existing Linux workloads while also creating a gradual path toward containerized applications.
 
-This project simulates a Solutions Architect engagement for Unreal Logistics, a fictional mid-sized logistics company.
+I focused on two areas:
 
-The proof of concept demonstrates how Red Hat technologies can address infrastructure automation and application modernization requirements while supporting a gradual modernization strategy.
+- automating RHEL configuration with Ansible Automation Platform
+- containerizing and deploying an application to OpenShift
 
-## Technologies
+## The scenario
 
-- Red Hat Enterprise Linux 9
-- Red Hat Ansible Automation Platform
-- Red Hat OpenShift
-- OpenShift Virtualization
-- Podman
-- Red Hat Universal Base Images
-- Quay.io
+Unreal Logistics has a small infrastructure team managing Linux virtual machines and applications with a lot of manual work.
 
-## Current Environment
+The main problems I wanted to address were:
 
-The initial lab environment has been successfully established:
+- inconsistent server configuration
+- repetitive administration
+- manual application deployment
+- configuration drift
+- growing operational complexity
+- no clear path for gradually introducing containers
 
-- OpenShift Developer Sandbox
-- Ansible Automation Platform
-- RHEL 9 virtual machine
-- OpenShift Virtualization dynamic inventory
-- SSH-based connectivity between AAP and RHEL
-- Successful Ansible connectivity validation
+I intentionally did not design the project around moving every workload to containers.
 
-## Project Status
+Some workloads can continue running as VMs while automation makes them easier to manage, while applications that are good candidates for containers can move to OpenShift over time.
 
-Infrastructure foundation complete.
+## Architecture
 
-Next phase:
+```mermaid
+flowchart TD
+    G[GitHub]
 
-1. Customer scenario
-2. Discovery
-3. Requirements
-4. POC success criteria
-5. Infrastructure automation
-6. Application containerization
-7. OpenShift deployment
-8. Technical validation
-9. Architecture and tradeoff documentation
+    G --> AAP[Ansible Automation Platform]
+    AAP --> RHEL[RHEL 9 VM]
+
+    G --> APP[Operations API]
+    APP --> P[Podman]
+    P --> Q[Quay.io]
+
+    Q --> OCP[Red Hat OpenShift]
+    OCP --> D[Deployment]
+    D --> P1[Pod]
+    D --> P2[Pod]
+
+    P1 --> S[Service]
+    P2 --> S
+    S --> R[Route]
+    R --> U[User]
+    
