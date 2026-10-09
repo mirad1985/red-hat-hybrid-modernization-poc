@@ -1,0 +1,11 @@
+[Unit]
+Description=Unreal Logistics POC web server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 -m http.server {{ web_port }} --directory /opt/unreal-logistics
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,21 +1,33 @@
 ---
-- name: Install Apache
-  ansible.builtin.dnf:
-    name: "{{ web_package }}"
-    state: present
+- name: Create web directory
+  ansible.builtin.file:
+    path: /opt/unreal-logistics
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
 
 - name: Add landing page
   ansible.builtin.template:
     src: index.html.j2
-    dest: /var/www/html/index.html
+    dest: /opt/unreal-logistics/index.html
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Add web service
+  ansible.builtin.template:
+    src: unreal-logistics-web.service.j2
+    dest: /etc/systemd/system/unreal-logistics-web.service
     owner: root
     group: root
     mode: "0644"
   notify:
-    - Restart Apache
+    - Restart web service
 
-- name: Start Apache
+- name: Start web service
   ansible.builtin.systemd_service:
     name: "{{ web_service }}"
     state: started
     enabled: true
+    daemon_reload: true

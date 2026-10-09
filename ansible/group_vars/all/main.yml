@@ -1,5 +1,5 @@
 ---
 company_name: "Unreal Logistics"
 deployment_environment: "poc"
-web_package: "httpd"
-web_service: "httpd"
+web_service: "unreal-logistics-web"
+web_port: 8080
