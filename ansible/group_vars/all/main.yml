@@ -1,0 +1,5 @@
+---
+company_name: "Unreal Logistics"
+deployment_environment: "poc"
+web_package: "httpd"
+web_service: "httpd"
