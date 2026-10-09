@@ -1,0 +1,12 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: unreal-operations
+spec:
+  to:
+    kind: Service
+    name: unreal-operations
+  port:
+    targetPort: http
+  tls:
+    termination: edge
