@@ -1,0 +1,8 @@
+---
+- name: Configure Unreal Logistics server
+  hosts: all
+  become: true
+
+  roles:
+    - baseline
+    - webserver
